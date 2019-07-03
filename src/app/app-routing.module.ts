@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {AuthGuard} from './guards/auth.guard';
+import { CanActivate } from '@angular/router/src/utils/preactivation';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './home/home.module#HomePageModule' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', loadChildren: './pages/login/login.module#LoginPageModule' },
+  { path: 'dashboard', loadChildren: './pages/dashboard/dashboard.module#DashboardPageModule' },
+  {
+    path: 'details/:myid',
+    loadChildren: './pages/details/details.module#DetailsPageModule',
+    canActivate: [AuthGuard] }
 ];
 
 @NgModule({
